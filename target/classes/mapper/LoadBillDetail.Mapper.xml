@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bbg.open.b2b4pos.dao.LoadBillDetailDao" >
+  <resultMap id="BaseResultMap" type="LoadBillDetail" >
+    <id column="GOODS_CODE" property="goodsCode" jdbcType="VARCHAR" />
+    <id column="LOAD_CODE" property="loadCode" jdbcType="VARCHAR" />
+    <id column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <id column="OUTBILL_CODE" property="outbillCode" jdbcType="VARCHAR" />
+    <result column="SELLER_CODE" property="sellerCode" jdbcType="VARCHAR" />
+    <result column="FACT_PRICE" property="factPrice" jdbcType="DECIMAL" />
+    <result column="QTY" property="qty" jdbcType="DECIMAL" />
+    <result column="OUT_QTY" property="outQty" jdbcType="DECIMAL" />
+    <result column="SALE_UNIT" property="saleUnit" jdbcType="VARCHAR" />
+    <result column="ISN" property="isn" jdbcType="VARCHAR" />
+    <result column="BALE_COUNT" property="baleCount" jdbcType="DECIMAL" />
+    <result column="COUPON_AMOUNT" property="couponAmount" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_AMOUNT" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="IS_GIFT" property="isGift" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_CODE, LOAD_CODE, ORDER_CODE, OUTBILL_CODE, SELLER_CODE, FACT_PRICE, QTY, OUT_QTY, 
+    SALE_UNIT, ISN, BALE_COUNT, COUPON_AMOUNT, DISCOUNT_AMOUNT, IS_GIFT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="LoadBillDetail" >
+    select 
+    <include refid="Base_Column_List" />
+    from  LOAD_BILL_DETAIL
+    where GOODS_CODE = #{goodsCode,jdbcType=VARCHAR}
+      and LOAD_CODE = #{loadCode,jdbcType=VARCHAR}
+      and ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+      and OUTBILL_CODE = #{outbillCode,jdbcType=VARCHAR}
+  </select>
+  <select id="queryLoadBillDetailList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from  LOAD_BILL_DETAIL
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="LoadBillDetail" >
+    delete from  LOAD_BILL_DETAIL
+    where GOODS_CODE = #{goodsCode,jdbcType=VARCHAR}
+      and LOAD_CODE = #{loadCode,jdbcType=VARCHAR}
+      and ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+      and OUTBILL_CODE = #{outbillCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="LoadBillDetail" >
+    insert into  LOAD_BILL_DETAIL (GOODS_CODE, LOAD_CODE, ORDER_CODE, 
+      OUTBILL_CODE, SELLER_CODE, FACT_PRICE, 
+      QTY, OUT_QTY, SALE_UNIT, 
+      ISN, BALE_COUNT, COUPON_AMOUNT, 
+      DISCOUNT_AMOUNT, IS_GIFT)
+    values (#{goodsCode,jdbcType=VARCHAR}, #{loadCode,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, 
+      #{outbillCode,jdbcType=VARCHAR}, #{sellerCode,jdbcType=VARCHAR}, #{factPrice,jdbcType=DECIMAL}, 
+      #{qty,jdbcType=DECIMAL}, #{outQty,jdbcType=DECIMAL}, #{saleUnit,jdbcType=VARCHAR}, 
+      #{isn,jdbcType=VARCHAR}, #{baleCount,jdbcType=DECIMAL}, #{couponAmount,jdbcType=DECIMAL}, 
+      #{discountAmount,jdbcType=DECIMAL}, #{isGift,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="LoadBillDetail" >
+    insert into  LOAD_BILL_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsCode != null" >
+        GOODS_CODE,
+      </if>
+      <if test="loadCode != null" >
+        LOAD_CODE,
+      </if>
+      <if test="orderCode != null" >
+        ORDER_CODE,
+      </if>
+      <if test="outbillCode != null" >
+        OUTBILL_CODE,
+      </if>
+      <if test="sellerCode != null" >
+        SELLER_CODE,
+      </if>
+      <if test="factPrice != null" >
+        FACT_PRICE,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="outQty != null" >
+        OUT_QTY,
+      </if>
+      <if test="saleUnit != null" >
+        SALE_UNIT,
+      </if>
+      <if test="isn != null" >
+        ISN,
+      </if>
+      <if test="baleCount != null" >
+        BALE_COUNT,
+      </if>
+      <if test="couponAmount != null" >
+        COUPON_AMOUNT,
+      </if>
+      <if test="discountAmount != null" >
+        DISCOUNT_AMOUNT,
+      </if>
+      <if test="isGift != null" >
+        IS_GIFT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loadCode != null" >
+        #{loadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outbillCode != null" >
+        #{outbillCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCode != null" >
+        #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="factPrice != null" >
+        #{factPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="outQty != null" >
+        #{outQty,jdbcType=DECIMAL},
+      </if>
+      <if test="saleUnit != null" >
+        #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isn != null" >
+        #{isn,jdbcType=VARCHAR},
+      </if>
+      <if test="baleCount != null" >
+        #{baleCount,jdbcType=DECIMAL},
+      </if>
+      <if test="couponAmount != null" >
+        #{couponAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        #{isGift,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="LoadBillDetail" >
+    update  LOAD_BILL_DETAIL
+    <set >
+      <if test="sellerCode != null" >
+        SELLER_CODE = #{sellerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="factPrice != null" >
+        FACT_PRICE = #{factPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="outQty != null" >
+        OUT_QTY = #{outQty,jdbcType=DECIMAL},
+      </if>
+      <if test="saleUnit != null" >
+        SALE_UNIT = #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isn != null" >
+        ISN = #{isn,jdbcType=VARCHAR},
+      </if>
+      <if test="baleCount != null" >
+        BALE_COUNT = #{baleCount,jdbcType=DECIMAL},
+      </if>
+      <if test="couponAmount != null" >
+        COUPON_AMOUNT = #{couponAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        DISCOUNT_AMOUNT = #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isGift != null" >
+        IS_GIFT = #{isGift,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GOODS_CODE = #{goodsCode,jdbcType=VARCHAR}
+      and LOAD_CODE = #{loadCode,jdbcType=VARCHAR}
+      and ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+      and OUTBILL_CODE = #{outbillCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="LoadBillDetail" >
+    update  LOAD_BILL_DETAIL
+    set SELLER_CODE = #{sellerCode,jdbcType=VARCHAR},
+      FACT_PRICE = #{factPrice,jdbcType=DECIMAL},
+      QTY = #{qty,jdbcType=DECIMAL},
+      OUT_QTY = #{outQty,jdbcType=DECIMAL},
+      SALE_UNIT = #{saleUnit,jdbcType=VARCHAR},
+      ISN = #{isn,jdbcType=VARCHAR},
+      BALE_COUNT = #{baleCount,jdbcType=DECIMAL},
+      COUPON_AMOUNT = #{couponAmount,jdbcType=DECIMAL},
+      DISCOUNT_AMOUNT = #{discountAmount,jdbcType=DECIMAL},
+      IS_GIFT = #{isGift,jdbcType=VARCHAR}
+    where GOODS_CODE = #{goodsCode,jdbcType=VARCHAR}
+      and LOAD_CODE = #{loadCode,jdbcType=VARCHAR}
+      and ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+      and OUTBILL_CODE = #{outbillCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

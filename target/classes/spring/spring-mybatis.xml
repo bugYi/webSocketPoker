@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 基于Druid数据库链接池的数据源配置 -->
+	<bean id="dataSourceOracle" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性driverClassName、 url、user、password -->
+		<property name="driverClassName" value="${oracle.jdbc.driver}" />
+		<property name="url" value="${oracle.jdbc.url}" />
+		<property name="username" value="${oracle.jdbc.username}" />
+		<property name="password" value="${oracle.jdbc.password}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<!-- 通常来说，只需要修改initialSize、minIdle、maxActive -->
+		<property name="initialSize" value="2" />
+		<property name="minIdle" value="2" />
+		<property name="maxActive" value="20" />
+		<property name="testWhileIdle" value="false" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="5000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="40000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<!-- 解密密码必须要配置的项 -->
+		<property name="filters" value="config" />
+		<property name="connectionProperties" value="config.decrypt=true" />
+	</bean>
+	
+	
+	<!-- 基于Druid数据库链接池的数据源配置 -->
+	<!-- <bean id="dataSourceMysql" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		基本属性driverClassName、 url、user、password
+		<property name="driverClassName" value="${mysql.jdbc.driver}" />
+		<property name="url" value="${mysql.jdbc.url}" />
+		<property name="username" value="${mysql.jdbc.username}" />
+		<property name="password" value="${mysql.jdbc.password}" />
+		配置初始化大小、最小、最大
+		通常来说，只需要修改initialSize、minIdle、maxActive
+		<property name="initialSize" value="2" />
+		<property name="minIdle" value="2" />
+		<property name="maxActive" value="20" />
+		<property name="testWhileIdle" value="false" />
+
+		配置获取连接等待超时的时间
+		<property name="maxWait" value="5000" />
+		配置一个连接在池中最小生存的时间，单位是毫秒
+		<property name="minEvictableIdleTimeMillis" value="40000" />
+		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		解密密码必须要配置的项
+		<property name="filters" value="config" />
+		<property name="connectionProperties" value="config.decrypt=true" />
+	</bean> -->
+	
+	
+	<bean id="dataSource" class="com.bbg.open.b2b4pos.common.DbcontextHolder"><!-- 这里写选择数据源的类地址 下面跟着给出-->
+        <property name="defaultTargetDataSource" ref="dataSourceOracle"/><!-- 设置默认为此dataSourceOracle数据源-->
+        <property name="targetDataSources">
+            <map>
+                <entry key="dataSourceOracle" value-ref="dataSourceOracle"/>
+                <!-- <entry key="dataSourceMysql" value-ref="dataSourceMysql"/> -->
+            </map>
+        </property>
+    </bean>
+	
+	<!-- 将数据源映射到sqlSessionFactory中 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- SqlSession模板类实例 -->
+	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	    <property name="basePackage" value="com.bbg.open.b2b4pos.dao" />
+    </bean> 
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

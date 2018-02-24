@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<!-- <context:component-scan base-package="com.bbg.open.b2b4pos" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan> -->
+	<context:component-scan base-package="com.bbg"/>
+
+	<!-- 解决ajax返回string乱码,需要在annotation-driven之前 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>application/json; charset=UTF-8</value>
+							<value>application/x-www-form-urlencoded; charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 访问拦截 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/**" />
+			<bean class="com.bbg.open.b2b4pos.interceptor.LoginHandlerInterceptor">
+				<property name="allowUrls">
+					<list>
+						如果请求中包含以下路径，则不进行拦截
+						<value>/toLogin</value>
+						<value>/noLogin</value>
+						<value>/login</value>
+						<value>/code</value>
+						<value>/logout</value>
+						<value>/js</value>
+						<value>/css</value>
+						<value>/image</value>
+						<value>/images</value>
+						<value>/resources</value>
+						<value>/echo</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+
+	<mvc:annotation-driven />
+	
+	<mvc:resources location="/WEB-INF/views/" mapping="/*.html"/>  
+	<mvc:resources location="/WEB-INF/resource/js/" mapping="/*.js"/>  
+	<mvc:resources location="/WEB-INF/resource/css/" mapping="/*.css"/>
+	<mvc:resources location="/WEB-INF/resource/images/" mapping="/images/**"/>  
+	
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<!-- <mvc:default-servlet-handler />	 -->
+	
+	
+	<!-- 定义JSP文件的位置 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 定义无Controller的path<->view直接映射 -->
+	<!-- <mvc:view-controller path="/"
+		view-name="redirect:/auth/toLogin" /> -->
+
+<!-- 访问拦截 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/**" />
+			<bean class="com.bbg.og.web.interceptor.AccessHandlerInterceptor">
+				<property name="allowUrls">
+					<list>
+					<value>/auth/login</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	
+	<!--file upload request resovler -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		one of the properties available; the maximum file size in bytes
+		<property name="maxUploadSize" value="5242880" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean> -->
+
+	<!-- 全局异常配置 start -->
+	<!-- <bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">error/500</prop>
+				<prop key="java.lang.Throwable">error/500</prop>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="500">500</prop>
+				<prop key="404">404</prop>
+				<prop key="403">403</prop>
+			</props>
+		</property>
+		设置日志输出级别，不定义则默认不输出警告等错误日志信息
+		<property name="warnLogCategory"
+			value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" />
+		默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置
+		<property name="defaultErrorView" value="error/500" />
+		默认HTTP状态码
+		<property name="defaultStatusCode" value="500" />
+	</bean> -->
+	<!-- 全局异常配置 end -->
+</beans>

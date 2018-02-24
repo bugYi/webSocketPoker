@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Testing</title>
+</head>
+<body>
+    Welcome
+    <input id="userId" type="text"/><button onclick="connect()">连接</button>
+    <br/>
+    <input id="text" type="text"/><button onclick="send()">发送消息</button>
+    <hr/>
+    <button onclick="closeWebSocket()">关闭WebSocket连接</button>
+    <hr/>
+    <div id="message"></div>
+</body>
+
+<script type="text/javascript">
+var last_health;
+var health_timeout = 10;
+//心跳包
+function keepalive(ws) {
+    var time = new Date();
+    if (last_health != -1 && (time.getTime() - last_health > health_timeout)) {
+
+        // ws.close();
+    } else {
+        if (ws.bufferedAmount == 0) {
+            ws.send('@heart');
+        }
+    }
+}
+
+    var websocket = null;
+    //判断当前浏览器是否支持WebSocket
+    
+    function connect(){
+    	var userId = document.getElementById('userId').value; 
+    	if(null != userId && "" != userId){
+    		if ('WebSocket' in window) {
+                websocket = new WebSocket("ws://localhost:8080/b2b4pos/websocketTest/"+userId);
+            }else {
+                alert('当前浏览器 Not support websocket')
+            }	
+    		
+    		//连接发生错误的回调方法
+    	    websocket.onerror = function () {
+    	        setMessageInnerHTML("WebSocket连接发生错误");
+    	    };
+
+    	    //连接成功建立的回调方法
+    	    websocket.onopen = function () {
+    	        setMessageInnerHTML("WebSocket连接成功");
+    	        console.log('已连接');
+                websocket.send("online"+userId);
+                heartbeat_timer = setInterval(function() {
+                    keepalive(websocket)
+                }, 60000);
+    	    }
+
+    	    //接收到消息的回调方法
+    	    websocket.onmessage = function (event) {
+    	        setMessageInnerHTML(event.data);
+    	    }
+
+    	    //连接关闭的回调方法
+    	    websocket.onclose = function () {
+    	        setMessageInnerHTML("WebSocket连接关闭");
+    	    }
+
+    	    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    	    window.onbeforeunload = function () {
+    	        closeWebSocket();
+    	    }
+    	}else{
+    		alert('用户名不能为空！');
+    	}
+    }
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+    //关闭WebSocket连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        var message = document.getElementById('text').value;
+        websocket.send(message);
+    }
+</script>
+</html>
