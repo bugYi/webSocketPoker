@@ -68,9 +68,9 @@ public class LoginController {
 			}
 			toRoomSendMsg(roomCode, "@100:" + sTemp.toString());
 			for (int i = 0; i < 3; i++) {
-				toSendMsg(sidList.get(i), "@100:" + pokList.get(i));
+				toSendMsg(sidList.get(i), "@100pokers-" + pokList.get(i));
 			}
-			toRoomSendMsg(roomCode, "@100:" + pokList.get(3));
+			toRoomSendMsg(roomCode, "@100pokers-" + pokList.get(3));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

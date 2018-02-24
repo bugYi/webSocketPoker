@@ -8,6 +8,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;  
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="<%=basePath %>/css/public.css" />
 <title>WebScoketAPI</title>
 </head>
 <body>
@@ -19,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <br>
 <textarea id='text'></textarea>
 <hr/>
+<div id="poker1" class="poker1"></div>
 <div id="message"></div>
 </body>
 <script type="text/javascript" src="<%=basePath%>/jquery.min.js"></script>
@@ -69,6 +71,17 @@ function keepalive(ws) {
     	    //接收到消息的回调方法
     	    websocket.onmessage = function (event) {
     	        setMessageInnerHTML(event.data);
+    	        
+    	        //取收到的消息，判断是否为系统分发，如果是系统分发则判断是否符合规则
+    	        var arr = new Array();
+    	        arr = event.data.split('-');
+    	        //符合规则就取消息内容（牌面）
+    	        if(arr[0] == "@100pokers"){
+    	        	var poker = new Array();
+    	        	poker = arr[1].split(',');
+    	        	alert(poker[0]);
+    	        	$("#poker1").attr("class", "poker"+poker[0]);
+    	        }
     	    }
 
     	    //连接关闭的回调方法
