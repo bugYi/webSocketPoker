@@ -3,7 +3,9 @@ package com.bbg.open.b2b4pos.web;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,15 @@ public class LoginController {
 	public String toIndex(){
 		return "index";
 	}*/
+	
+	@RequestMapping("/toLogin")
+	@ResponseBody
+	public String toLogin(String userId){
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("webSocketSessionId", userId);
+		return userId;
+	}
+	
 	
 	
 	@RequestMapping("/toWebsocket")
@@ -79,7 +90,42 @@ public class LoginController {
 		return new BaseResult("0000", "成功");	
 	}
 	
-	
+	@RequestMapping("/ajaxGetRoomCode")
+	@ResponseBody
+	public Map<String, String> ajaxGetRoomCode(){
+		Map<String, String> result = new HashMap<String, String>();
+		String roomCode = "";
+		List<String> list = new ArrayList<String>();
+		String userId = (String) request.getSession().getAttribute("webSocketSessionId");
+		if(StringUtils.isEmpty(userId)){
+			result.put("msg", "请先登录");
+			return result;	
+		}
+		list.add(userId);
+		
+		if(roomMap.isEmpty()){//当没有房间的时候随机创建一个
+			roomCode = ((int) ((Math.random()*9+1)*100000))+"";
+		}else{//如果存在房间则需要判断房间号是否重复
+			boolean flag = true;//是否找到房间号
+			while(flag){
+				roomCode = ((int) ((Math.random()*9+1)*100000))+"";
+				Enumeration<String> enu = roomMap.keys();//取map中所有房间号
+				while (enu.hasMoreElements()) {
+					String rooms = (String) enu.nextElement();
+					if(roomCode.equals(rooms)){//如果房间号存在则跳出循环
+						flag = true;
+						break;
+					}else{
+						flag = false;
+					}
+				}
+			}
+		}
+		roomMap.put(roomCode, list);
+		request.getSession().setAttribute("roomCode", roomCode);
+		result.put("roomCode", roomCode);
+		return result;
+	}
 	
 	
 	@RequestMapping("/getRoomCode")
@@ -114,6 +160,42 @@ public class LoginController {
 		roomMap.put(roomCode, list);
 		request.getSession().setAttribute("roomCode", roomCode);
 		return "webSocket";	
+	}
+	
+	
+	@RequestMapping("/putRoomByCode")
+	@ResponseBody
+	public Map<String, String> putRoomByCode(String roomCode){
+		Map<String, String> result = new HashMap<String, String>();
+		boolean flag = false;//是否找到房间号
+		Enumeration<String> enu = roomMap.keys();//取map中所有房间号
+		while (enu.hasMoreElements()) {
+			String rooms = (String) enu.nextElement();
+			if(roomCode.equals(rooms)){//如果房间号存在则跳出循环
+				flag = true;
+				break;
+			}else{
+				flag = false;
+			}
+		}
+		
+		if(flag){//找到房间号，则进入房间并跳转连接接页面
+			String userId = (String) request.getSession().getAttribute("webSocketSessionId");
+			if(StringUtils.isEmpty(userId)){
+				result.put("msg", "请先登录");
+				return result;	
+			}
+			List<String> list = roomMap.get(roomCode);
+			list.add(userId);
+			roomMap.put(roomCode, list);
+			request.getSession().setAttribute("roomCode", roomCode);
+			result.put("roomCode", roomCode);
+			return result;	
+		}else{//否则回到输房间号页面
+			result.put("msg", "房间号不正确");
+			return result;	
+		}
+		
 	}
 	
 	@RequestMapping("/putRoomCode")

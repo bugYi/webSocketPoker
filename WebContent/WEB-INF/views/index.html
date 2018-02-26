@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Testing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<title>WebScoketAPI</title>
 </head>
 <body>
-    Welcome
-    <input id="userId" type="text"/><button onclick="connect()">连接</button>
-    <br/>
-    <input id="text" type="text"/><button onclick="send()">发送消息</button>
-    <hr/>
-    <button onclick="closeWebSocket()">关闭WebSocket连接</button>
-    <hr/>
-    <div id="message"></div>
+<div>用户：<span id="userName"></span></div>
+<div>房间号：<span id="roomCode"></span></div>
+<button id="conBtn" onclick="connect()">连接</button>
+<button onclick="send()">发送</button>
+<button onclick="closeWebSocket()">退出</button>
+<br>
+<textarea id='text'></textarea>
+<hr/>
+<div id="poker1"></div>
+<div id="message"></div>
 </body>
-
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
+var userName = localStorage.getItem("userName");
+var roomCode = localStorage.getItem("roomCode");
+if(userName == null || userName == "" || roomCode == null || roomCode == ""){
+	location.href = "login.html";
+}
+
+$("#userName").html(userName);
+$("#roomCode").html(roomCode);
+
 var last_health;
 var health_timeout = 10;
 //心跳包
@@ -31,14 +43,16 @@ function keepalive(ws) {
     }
 }
 
+var url = window.document.location.href;
+url = "ws://"+url.substring(url.indexOf('://')+3, url.substr(1).lastIndexOf('/')+1)+"/websocket";
+
     var websocket = null;
     //判断当前浏览器是否支持WebSocket
     
     function connect(){
-    	var userId = document.getElementById('userId').value; 
-    	if(null != userId && "" != userId){
+    	if(null != userName && "" != userName){
     		if ('WebSocket' in window) {
-                websocket = new WebSocket("ws://localhost:8080/b2b4pos/websocketTest/"+userId);
+                websocket = new WebSocket(url); //"ws://localhost:8080/webSocketPoker/websocket"
             }else {
                 alert('当前浏览器 Not support websocket')
             }	
@@ -50,9 +64,10 @@ function keepalive(ws) {
 
     	    //连接成功建立的回调方法
     	    websocket.onopen = function () {
-    	        setMessageInnerHTML("WebSocket连接成功");
+    	        setMessageInnerHTML("连接成功");
+    	        $("#conBtn").hide();
     	        console.log('已连接');
-                websocket.send("online"+userId);
+                websocket.send("online"+userName);
                 heartbeat_timer = setInterval(function() {
                     keepalive(websocket)
                 }, 60000);
@@ -61,10 +76,22 @@ function keepalive(ws) {
     	    //接收到消息的回调方法
     	    websocket.onmessage = function (event) {
     	        setMessageInnerHTML(event.data);
+    	        
+    	        //取收到的消息，判断是否为系统分发，如果是系统分发则判断是否符合规则
+    	        var arr = new Array();
+    	        arr = event.data.split('-');
+    	        //符合规则就取消息内容（牌面）
+    	        if(arr[0] == "@100pokers"){
+    	        	var poker = new Array();
+    	        	poker = arr[1].split(',');
+    	        	alert(poker[0]);
+    	        	$("#poker1").attr("class", "poker"+poker[0]);
+    	        }
     	    }
 
     	    //连接关闭的回调方法
     	    websocket.onclose = function () {
+    	        localStorage.clear();
     	        setMessageInnerHTML("WebSocket连接关闭");
     	    }
 
@@ -85,6 +112,8 @@ function keepalive(ws) {
     //关闭WebSocket连接
     function closeWebSocket() {
         websocket.close();
+        localStorage.clear();
+        $("#conBtn").show();
     }
 
     //发送消息
