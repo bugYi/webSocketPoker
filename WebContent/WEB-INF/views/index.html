@@ -11,6 +11,7 @@
 <button id="conBtn" onclick="connect()">连接</button>
 <button onclick="send()">发送</button>
 <button onclick="closeWebSocket()">退出</button>
+<button onclick="closeRoom()">退出房间</button>
 <br>
 <textarea id='text'></textarea>
 <hr/>
@@ -84,14 +85,15 @@ url = "ws://"+url.substring(url.indexOf('://')+3, url.substr(1).lastIndexOf('/')
     	        if(arr[0] == "@100pokers"){
     	        	var poker = new Array();
     	        	poker = arr[1].split(',');
-    	        	alert(poker[0]);
+    	        	console.log(poker[0]);
     	        	$("#poker1").attr("class", "poker"+poker[0]);
     	        }
     	    }
 
     	    //连接关闭的回调方法
     	    websocket.onclose = function () {
-    	        localStorage.clear();
+    	        //localStorage.clear();
+        		$("#conBtn").show();
     	        setMessageInnerHTML("WebSocket连接关闭");
     	    }
 
@@ -112,7 +114,7 @@ url = "ws://"+url.substring(url.indexOf('://')+3, url.substr(1).lastIndexOf('/')
     //关闭WebSocket连接
     function closeWebSocket() {
         websocket.close();
-        localStorage.clear();
+        //localStorage.clear();
         $("#conBtn").show();
     }
 
@@ -121,5 +123,24 @@ url = "ws://"+url.substring(url.indexOf('://')+3, url.substr(1).lastIndexOf('/')
         var message = document.getElementById('text').value;
         websocket.send(message);
     }
+    
+    function closeRoom(){
+    	localStorage.setItem("roomCode", "");
+    	location.reload();
+    }
+    
+$(function() {	
+	//判断是否登录了
+	$.ajax({
+		url:'/webSocketPoker/queryUserName',
+		type:'post',
+		data:'',
+		success:function(data){
+			if("" == data || null == data){
+				location.href = "login.html";
+			}
+		}
+	});
+});     
 </script>
 </html>

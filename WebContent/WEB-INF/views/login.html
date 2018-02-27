@@ -63,17 +63,23 @@ function putRoomByCode(){
 
 $(function() {	
 	//初始化页面，只显示登录框
-	var userName = localStorage.getItem("userName");
-	if("" == userName || null == userName){
-		$("#login").show();
-		$("#getRoom").hide();
-		$("#putRoom").hide();
-	}else{
-		$("#userName").html(userName);
-		$("#login").hide();
-		$("#getRoom").show();
-		$("#putRoom").show();
-	}
+	$.ajax({
+		url:'/webSocketPoker/queryUserName',
+		type:'post',
+		data:'',
+		success:function(data){
+			if("" == data || null == data){
+				$("#login").show();
+				$("#getRoom").hide();
+				$("#putRoom").hide();
+			}else{	
+				$("#userName").html(data);
+				$("#login").hide();
+				$("#getRoom").show();
+				$("#putRoom").show();
+			}
+		}
+	});
 });
 </script>
 </head>
