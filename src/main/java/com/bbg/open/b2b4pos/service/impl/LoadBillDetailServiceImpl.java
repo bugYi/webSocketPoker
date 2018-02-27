@@ -15,12 +15,13 @@ import com.bbg.open.b2b4pos.web.param.SaleOrderParam;
 @Transactional(readOnly=true)
 public class LoadBillDetailServiceImpl implements LoadBillDetailService {
 
-	@Autowired
-	LoadBillDetailDao loadBillDetailDao;
+	/*@Autowired
+	LoadBillDetailDao loadBillDetailDao;*/
 
 	@Override
 	public List<LoadBillDetail> querySaleOrderList(SaleOrderParam saleOrder) {
+		return null;
 		// TODO Auto-generated method stub
-		return loadBillDetailDao.queryLoadBillDetailList(saleOrder.getLoadCode());
+		//return loadBillDetailDao.queryLoadBillDetailList(saleOrder.getLoadCode());
 	}
 }
