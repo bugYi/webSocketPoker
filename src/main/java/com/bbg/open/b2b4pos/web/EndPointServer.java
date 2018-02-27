@@ -70,14 +70,14 @@ public class EndPointServer {
      @OnError
      public void onError(Throwable t) {
          //以下代码省略...
-    	 sessionMap.remove(this);
+    	 sessionMap.remove(userName+"-"+session.getId());
          System.err.println("出错了");
      }
 
      @OnClose
      public void onClose(Session session, CloseReason reason) {
          //以下代码省略...
-    	 sessionMap.remove(this);
+    	 sessionMap.remove(userName+"-"+session.getId());
          System.out.println(session.getId()+"退出链接");
      } 
 

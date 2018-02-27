@@ -5,7 +5,8 @@
 <head>
 <%
 String path = request.getContextPath();  
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path; 
+String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path+"/websocket";
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="<%=basePath %>/css/public.css" />
@@ -24,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="poker2"></div>
 <div id="message"></div>
 </body>
-<script type="text/javascript" src="<%=basePath%>/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
 var last_health;
 var health_timeout = 10;
@@ -48,7 +49,7 @@ function keepalive(ws) {
     	var userId = "${webSocketSessionId}"; 
     	if(null != userId && "" != userId){
     		if ('WebSocket' in window) {
-                websocket = new WebSocket("ws://localhost:8080/webSocketPoker/websocket");
+                websocket = new WebSocket("<%=wsPath %>"); //"ws://localhost:8080/webSocketPoker/websocket"
             }else {
                 alert('当前浏览器 Not support websocket')
             }	

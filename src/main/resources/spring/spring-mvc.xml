@@ -66,7 +66,7 @@
 	<mvc:annotation-driven />
 	
 	<mvc:resources location="/WEB-INF/views/" mapping="/*.html"/>  
-	<mvc:resources location="/WEB-INF/resource/js/" mapping="/*.js"/>  
+	<mvc:resources location="/WEB-INF/resource/js/" mapping="/js/**"/>  
 	<mvc:resources location="/WEB-INF/resource/css/" mapping="/css/**"/>
 	<mvc:resources location="/WEB-INF/resource/images/" mapping="/images/**"/>  
 	

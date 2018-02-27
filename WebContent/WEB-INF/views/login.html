@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录</title>
+<script type="text/javascript">
+function toLogin(){
+	$.ajax({
+		url:'/webSocketPoker/toLogin',
+		type:'post',
+		data:$('#login').serialize(),
+		success:function(data){
+			if("" == data || null == data){
+				$("#login").show();
+				$("#getRoom").hide();
+				$("#putRoom").hide();
+			}else{	
+				$("#userName").html(data);
+				localStorage.setItem("userName", data);
+				$("#login").hide();
+				$("#getRoom").show();
+				$("#putRoom").show();
+			}
+		}
+	});
+};
+
+function getRoomCode(){
+	$.ajax({
+		url:'/webSocketPoker/ajaxGetRoomCode',
+		type:'post',
+		data:$('#getRoom').serialize(),
+		success:function(data){
+			if(data.msg != null || undefined != data.msg){
+				alert(data.msg);
+			}else{
+				console.log(data.roomCode);
+				localStorage.setItem("roomCode", data.roomCode);
+				location.href = "index.html";
+			}
+		}
+	});
+}
+
+function putRoomByCode(){
+	$.ajax({
+		url:'/webSocketPoker/putRoomByCode',
+		type:'post',
+		data:$('#putRoom').serialize(),
+		success:function(data){
+			if(data.msg != null || undefined != data.msg){
+				alert(data.msg);
+			}else{
+				console.log(data.roomCode);
+				localStorage.setItem("roomCode", data.roomCode);
+				location.href = "index.html";
+			}
+		}
+	});
+};
+
+$(function() {	
+	//初始化页面，只显示登录框
+	$.ajax({
+		url:'/webSocketPoker/queryUserName',
+		type:'post',
+		data:'',
+		success:function(data){
+			if("" == data || null == data){
+				$("#login").show();
+				$("#getRoom").hide();
+				$("#putRoom").hide();
+			}else{	
+				$("#userName").html(data);
+				$("#login").hide();
+				$("#getRoom").show();
+				$("#putRoom").show();
+			}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div>用户：<span id="userName"></span></div>
+<form id="login" action="">
+	<input name="userId"/>
+	<button type="button" onclick="toLogin()">提交</button>
+</form>
+<form id="getRoom" action="">
+	<button type="button" onclick="getRoomCode()">获取房间号</button>
+</form>
+<form id="putRoom" action="">
+	<input name="roomCode"/>
+	<button type="button" onclick="putRoomByCode()">进入房间</button>
+</form>
+</body>
+</html>
