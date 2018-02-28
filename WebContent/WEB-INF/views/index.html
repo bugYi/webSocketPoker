@@ -12,6 +12,7 @@
 <button onclick="send()">发送</button>
 <button onclick="closeWebSocket()">退出</button>
 <button onclick="closeRoom()">退出房间</button>
+<button onclick="toReady()">准备</button>
 <br>
 <textarea id='text'></textarea>
 <hr/>
@@ -128,6 +129,19 @@ url = "ws://"+url.substring(url.indexOf('://')+3, url.substr(1).lastIndexOf('/')
     	localStorage.setItem("roomCode", "");
     	location.reload();
     }
+    
+    function toReady(){
+    	$.ajax({
+    		url:'/webSocketPoker/toReady',
+    		type:'post',
+    		data:'',
+    		success:function(data){
+    			if("0000" == data.msgCode){
+    				setMessageInnerHTML("准备"+data.msg);
+    			}
+    		}
+    	});
+    }    
     
 $(function() {	
 	//判断是否登录了

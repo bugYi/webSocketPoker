@@ -213,7 +213,7 @@ public class RoomController {
 			for (int i = 0; i < 3; i++) {
 				toSendMsg(sidList.get(i), "@100pokers-" + pokList.get(i));
 			}
-			toRoomSendMsg(roomCode, "@100pokers-" + pokList.get(3));
+			toRoomSendMsg(roomCode, "@100pokersUn-" + pokList.get(3));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -323,7 +323,7 @@ public class RoomController {
 		httpSession.setAttribute("readyStatus", true);
 		
 		String roomCode = (String) httpSession.getAttribute("roomCode");
-		if(isAllReady(roomCode)){
+		if(isAllReady(roomCode)){//传入房间号判断是否全部准备好了，如果是，则直接往房间发牌
 			doPlayFull(roomCode);
 		}
     	return new BaseResult("0000", "成功");	
@@ -335,13 +335,14 @@ public class RoomController {
 		while (enu.hasMoreElements()) {//遍历所有连接
 			String key = (String) enu.nextElement();
 			String tempCode = (String) EndPointServer.sessionMap.get(key).httpSession.getAttribute("roomCode");
-			if(tempCode.equals(roomCode)){
-				if((boolean) EndPointServer.sessionMap.get(key).httpSession.getAttribute("readyStatus")){
+			if(tempCode.equals(roomCode)){//取出房间里面每个人的准备状态
+				boolean temp = (boolean) EndPointServer.sessionMap.get(key).httpSession.getAttribute("readyStatus");
+				if(temp){//准备好了则+1
 					i++;
 				}
 			}
 		}
-		if(i >= 3){
+		if(i >= 3){//当三个人都准备好了则返回true
 			return true;
 		}else{
 			return false;
