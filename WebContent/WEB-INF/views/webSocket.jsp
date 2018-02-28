@@ -22,6 +22,7 @@ String wsPath = "ws://"+request.getServerName()+":"+request.getServerPort()+path
 <textarea id='text'></textarea>
 <hr/>
 <div id="poker1" class="poker1"></div>
+<div id="poker2"></div>
 <div id="message"></div>
 </body>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -80,8 +81,27 @@ function keepalive(ws) {
     	        if(arr[0] == "@100pokers"){
     	        	var poker = new Array();
     	        	poker = arr[1].split(',');
-    	        	alert(poker[0]);
-    	        	$("#poker1").attr("class", "poker"+poker[0]);
+    	        	
+    	        	for(var i=0; i<poker.length; i++){
+    	        		var x = parseInt(poker[i]/13);
+        	        	if(x == 0){
+        	        		x = 'A';
+        	        	}
+    					if(x == 1){
+    						x = 'B';   		
+    					}
+    					if(x == 2){
+    						x = 'C';
+    					}
+    					if(x == 3){
+    						x = 'D';
+    					}
+        	        	var y = poker[i] % 13;
+        	        	if(y==0){
+        	        		y == 13;
+        	        	}
+        	        	$("#poker"+(i+1)).attr("class", "poker"+x+y);	
+    	        	}
     	        }
     	    }
 

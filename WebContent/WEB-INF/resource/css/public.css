@@ -1,91 +1,396 @@
-.poker1{
+
+
+
+
+.weizhi{ float: left;}
+.pokerA1{
 	width: 200px;
 	height: 300px;
 	background: url("../images/1.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 } 
-.poker2{
+.pokerA2{
 	width: 200px;
 	height: 300px;
 	background: url("../images/2.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }
-.poker3{
+.pokerA3{
 	width: 200px;
 	height: 300px;
 	background: url("../images/3.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 } 
-.poker4{
+.pokerA4{
 	width: 200px;
 	height: 300px;
 	background: url("../images/4.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker5{
+.pokerA5{
 	width: 200px;
 	height: 300px;
 	background: url("../images/5.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker6{
+.pokerA6{
 	width: 200px;
 	height: 300px;
 	background: url("../images/6.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker7{
+.pokerA7{
 	width: 200px;
 	height: 300px;
 	background: url("../images/7.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker8{
+.pokerA8{
 	width: 200px;
 	height: 300px;
 	background: url("../images/8.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker9{
+.pokerA9{
 	width: 200px;
 	height: 300px;
 	background: url("../images/9.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker10{
+.pokerA10{
 	width: 200px;
 	height: 300px;
 	background: url("../images/10.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker11{
+.pokerA11{
 	width: 200px;
 	height: 300px;
 	background: url("../images/11.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker12{
+.pokerA12{
 	width: 200px;
 	height: 300px;
 	background: url("../images/12.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }   
-.poker13{
+.pokerA13{
 	width: 200px;
 	height: 300px;
 	background: url("../images/13.png") no-repeat;
 	overflow: hidden;
 	background-size: 200px 300px;
 }  
+
+
+.pokerB1{
+	width: 200px;
+	height: 300px;
+	background: url("../images/14.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerB2{
+	width: 200px;
+	height: 300px;
+	background: url("../images/15.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}
+.pokerB3{
+	width: 200px;
+	height: 300px;
+	background: url("../images/16.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerB4{
+	width: 200px;
+	height: 300px;
+	background: url("../images/17.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB5{
+	width: 200px;
+	height: 300px;
+	background: url("../images/18.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB6{
+	width: 200px;
+	height: 300px;
+	background: url("../images/19.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB7{
+	width: 200px;
+	height: 300px;
+	background: url("../images/20.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB8{
+	width: 200px;
+	height: 300px;
+	background: url("../images/21.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB9{
+	width: 200px;
+	height: 300px;
+	background: url("../images/22.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB10{
+	width: 200px;
+	height: 300px;
+	background: url("../images/23.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB11{
+	width: 200px;
+	height: 300px;
+	background: url("../images/24.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB12{
+	width: 200px;
+	height: 300px;
+	background: url("../images/25.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerB13{
+	width: 200px;
+	height: 300px;
+	background: url("../images/26.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}  
+
+
+
+
+.pokerC1{
+	width: 200px;
+	height: 300px;
+	background: url("../images/27.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerC2{
+	width: 200px;
+	height: 300px;
+	background: url("../images/28.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}
+.pokerC3{
+	width: 200px;
+	height: 300px;
+	background: url("../images/29.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerC4{
+	width: 200px;
+	height: 300px;
+	background: url("../images/30.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC5{
+	width: 200px;
+	height: 300px;
+	background: url("../images/31.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC6{
+	width: 200px;
+	height: 300px;
+	background: url("../images/32.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC7{
+	width: 200px;
+	height: 300px;
+	background: url("../images/33.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC8{
+	width: 200px;
+	height: 300px;
+	background: url("../images/34.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC9{
+	width: 200px;
+	height: 300px;
+	background: url("../images/35.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC10{
+	width: 200px;
+	height: 300px;
+	background: url("../images/36.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC11{
+	width: 200px;
+	height: 300px;
+	background: url("../images/37.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC12{
+	width: 200px;
+	height: 300px;
+	background: url("../images/38.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerC13{
+	width: 200px;
+	height: 300px;
+	background: url("../images/39.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+
+
+
+
+
+
+.pokerD1{
+	width: 200px;
+	height: 300px;
+	background: url("../images/40.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerD2{
+	width: 200px;
+	height: 300px;
+	background: url("../images/41.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}
+.pokerD3{
+	width: 200px;
+	height: 300px;
+	background: url("../images/42.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+.pokerD4{
+	width: 200px;
+	height: 300px;
+	background: url("../images/43.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD5{
+	width: 200px;
+	height: 300px;
+	background: url("../images/44.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD6{
+	width: 200px;
+	height: 300px;
+	background: url("../images/45.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD7{
+	width: 200px;
+	height: 300px;
+	background: url("../images/46.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD8{
+	width: 200px;
+	height: 300px;
+	background: url("../images/47.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD9{
+	width: 200px;
+	height: 300px;
+	background: url("../images/48.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD10{
+	width: 200px;
+	height: 300px;
+	background: url("../images/49.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD11{
+	width: 200px;
+	height: 300px;
+	background: url("../images/50.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD12{
+	width: 200px;
+	height: 300px;
+	background: url("../images/51.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.pokerD13{
+	width: 200px;
+	height: 300px;
+	background: url("../images/52.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+} 
+
+.poker53{
+	width: 200px;
+	height: 300px;
+	background: url("../images/53.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}   
+.poker54{
+	width: 200px;
+	height: 300px;
+	background: url("../images/54.png") no-repeat;
+	overflow: hidden;
+	background-size: 200px 300px;
+}

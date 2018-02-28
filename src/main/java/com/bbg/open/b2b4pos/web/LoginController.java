@@ -1,4 +1,4 @@
-package com.bbg.open.b2b4pos.web;
+﻿package com.bbg.open.b2b4pos.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
