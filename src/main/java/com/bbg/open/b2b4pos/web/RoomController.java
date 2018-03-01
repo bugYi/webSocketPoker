@@ -336,9 +336,11 @@ public class RoomController {
 			String key = (String) enu.nextElement();
 			String tempCode = (String) EndPointServer.sessionMap.get(key).httpSession.getAttribute("roomCode");
 			if(tempCode.equals(roomCode)){//取出房间里面每个人的准备状态
-				boolean temp = (boolean) EndPointServer.sessionMap.get(key).httpSession.getAttribute("readyStatus");
-				if(temp){//准备好了则+1
-					i++;
+				if(EndPointServer.sessionMap.get(key).httpSession.getAttribute("readyStatus") != null){
+					boolean temp = (boolean) EndPointServer.sessionMap.get(key).httpSession.getAttribute("readyStatus");
+					if(temp){//准备好了则+1
+						i++;
+					}
 				}
 			}
 		}

@@ -52,7 +52,12 @@ public class LoginController {
 		return userId;
 	}
 	
-	
+	@RequestMapping("/queryRoomCode")
+	@ResponseBody
+	public String queryRoomCode(){
+		String roomCode = (String) request.getSession().getAttribute("roomCode");
+		return roomCode;
+	}
 	
 	@RequestMapping("/toWebsocket")
 	public String toWebsocket(String userId){

@@ -71,6 +71,7 @@ public class EndPointServer {
      public void onError(Throwable t) {
          //以下代码省略...
     	 sessionMap.remove(userName+"-"+session.getId());
+    	 httpSession.setAttribute("readyStatus", false);
          System.err.println("出错了");
      }
 
@@ -78,6 +79,7 @@ public class EndPointServer {
      public void onClose(Session session, CloseReason reason) {
          //以下代码省略...
     	 sessionMap.remove(userName+"-"+session.getId());
+    	 httpSession.setAttribute("readyStatus", false);
          System.out.println(session.getId()+"退出链接");
      } 
 
